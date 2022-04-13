@@ -1,0 +1,102 @@
+<div cdkDropListGroup>
+	<div class="example-container">
+		<h2>To do</h2>
+
+		<div cdkDropList [cdkDropListData]="todo" class="example-list" (cdkDropListDropped)="drop($event)">
+			<div class="example-box" *ngFor="let item of todo; let index = index;" cdkDrag>
+				<cdk-accordion class="example-accordion">
+					<cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button"
+						tabindex="0" [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
+						[attr.aria-controls]="'accordion-body-' + index">
+						<div>
+							<div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+								{{ item.name }}
+							</div>
+							<div class="actions">
+								<button mat-icon-button (click)="openDialog(item)">
+									<mat-icon>edit</mat-icon>
+								</button>
+								<button mat-icon-button color="error" (click)="remove(item.id)">
+									<mat-icon>delete</mat-icon>
+								</button>
+							</div>
+						</div>
+						<br>
+						<div class="header-description">
+							<label for="" class="example-accordion-item-header">assigned:</label>
+							<mat-chip-list>
+								<mat-chip color="primary">{{ employees | employee: item.employeeId }}</mat-chip>
+							</mat-chip-list>
+						</div>
+						<div class="header-description">
+							<label for="" class="example-accordion-item-header">execution date:</label>
+							<span>{{ item.executionDate | date: "medium" }}</span>
+						</div>
+						<div class="header-description">
+							<label for="" class="example-accordion-item-header">delay:</label>
+							<span>{{ calculateDiff(item.executionDate) }}</span>
+						</div>
+						<div class="example-accordion-item-body" role="region"
+							[style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
+							[attr.aria-labelledby]="'accordion-header-' + index">
+							<br>
+							{{ item.description }}
+						</div>
+					</cdk-accordion-item>
+				</cdk-accordion>
+			</div>
+		</div>
+	</div>
+
+	<div class="example-container">
+		<h2>Done</h2>
+
+		<div cdkDropList [cdkDropListData]="done" class="example-list" (cdkDropListDropped)="drop($event)">
+			<div class="example-box" *ngFor="let item of done; let index = index;" cdkDrag>
+				<cdk-accordion class="example-accordion">
+					<cdk-accordion-item #accordionItem="cdkAccordionItem" class="example-accordion-item" role="button"
+						tabindex="0" [attr.id]="'accordion-header-' + index" [attr.aria-expanded]="accordionItem.expanded"
+						[attr.aria-controls]="'accordion-body-' + index">
+						<div>
+							<div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+								{{ item.name }}
+							</div>
+							<div class="actions">
+								<button mat-icon-button (click)="openDialog(item)">
+									<mat-icon>edit</mat-icon>
+								</button>
+								<button mat-icon-button color="error" (click)="remove(item.id)">
+									<mat-icon>delete</mat-icon>
+								</button>
+							</div>
+						</div>
+						<br>
+						<div class="header-description">
+							<label for="" class="example-accordion-item-header">assigned:</label>
+							<mat-chip-list>
+								<mat-chip color="primary">{{ employees | employee: item.employeeId }}</mat-chip>
+							</mat-chip-list>
+						</div>
+						<div class="header-description">
+							<label for="" class="example-accordion-item-header">execution date:</label>
+							<span>{{ item.executionDate | date: "medium" }}</span>
+						</div>
+						<div class="header-description">
+							<label for="" class="example-accordion-item-header">delay:</label>
+							<span>{{ calculateDiff(item.executionDate) }}</span>
+						</div>
+						<div class="example-accordion-item-body" role="region"
+							[style.display]="accordionItem.expanded ? '' : 'none'" [attr.id]="'accordion-body-' + index"
+							[attr.aria-labelledby]="'accordion-header-' + index">
+							<br>
+							{{ item.description }}
+						</div>
+					</cdk-accordion-item>
+				</cdk-accordion>
+			</div>
+		</div>
+	</div>
+	<button mat-fab color="primary" class="float-right" (click)="openDialog(task)">
+		<mat-icon>query_builder</mat-icon>
+	</button>
+</div>
